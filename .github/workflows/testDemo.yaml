@@ -21,6 +21,7 @@ jobs:
           path: htmlcov/
   delopy:
     runs-on: ubuntu-22.04
+    if: ${{ always() }}
     needs: test-code
     steps:
       - name: checkout code

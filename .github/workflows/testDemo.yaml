@@ -1,0 +1,28 @@
+name: testdemo
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+jobs:
+  test-code:
+    runs-on: ubuntu-22.04 
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: install requirements
+        run: pip install -r requirements.txt
+      - name: run py test
+        run: pytest --cov-report html:htmlcov --cov-report term --cov=project tests
+      - name: upload test repots
+        uses: action/upload-artifact@v3
+        with:
+          name: test-report
+          path: htmlcov/
+  delopy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: deploy code
+        run: echo "deploy......"
